@@ -2,127 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Lightning AI | OS</title>
-    
     <link rel="stylesheet" href="style.css">
-
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
     <link rel="manifest" href="manifest.json">
-    
-    <meta name="theme-color" content="#05070a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log("Service Worker Registered!", reg.scope))
-            .catch(err => console.log("SW Registration Failed", err));
-        });
-      }
-    </script>
 </head>
 <body class="dark-mode">
 
 <div class="app">
-
-    <!-- HISTORY PANEL -->
     <div id="historyPanel" class="side-panel">
         <div class="panel-header">
             <h3>Recent Chats</h3>
-            <button class="close-panel" onclick="uiAction('close')">✕</button>
+            <button onclick="uiAction('close')" style="background:none; border:none; color:white; font-size:20px;">✕</button>
         </div>
-
-        <div class="panel-content" id="historyList">
-            <div class="list-item">No recent conversations</div>
-        </div>
+        <div id="historyList">No recent conversations</div>
     </div>
 
-    <!-- SETTINGS -->
     <div id="settingsSheet" class="bottom-sheet">
-        <div class="handle" onclick="uiAction('close')"></div>
-
-        <div class="sheet-content">
-            <div class="sheet-header">
-                System Settings
-
-                <button
-                    class="close-panel"
-                    onclick="uiAction('close')"
-                    style="height:30px;width:30px;font-size:14px;"
-                >
-                    ✕
-                </button>
+        <div style="width:40px; height:4px; background:var(--glass-border); margin: 0 auto 20px; border-radius:2px;" onclick="uiAction('close')"></div>
+        <div class="option-item" onclick="toggleTheme()">
+            <div>
+                <p>Appearance</p>
+                <span style="font-size:12px; opacity:0.6;">Toggle Light/Dark Mode</span>
             </div>
-
-            <div class="option-item" onclick="toggleTheme()">
-                <div class="opt-text">
-                    <p>Appearance</p>
-                    <span style="font-size:12px;opacity:0.6;">
-                        Toggle Light/Dark Mode
-                    </span>
-                </div>
-
-                <i data-lucide="moon"></i>
-            </div>
-
-            <div class="option-item logout">
-                <span>Log Out</span>
-                <i data-lucide="log-out"></i>
-            </div>
+            <i data-lucide="moon"></i>
         </div>
     </div>
 
-    <!-- MAIN SCREEN -->
     <div class="home-screen">
-
-        <!-- BRAND -->
-        <div id="brandPill" class="brand-pill-center">
-            ⚡ LIGHTNING <span>AI</span>
-        </div>
-
-        <!-- SUGGESTIONS -->
+        <div id="brandPill" class="brand-pill-center">⚡ LIGHTNING <span>AI</span></div>
         <div id="suggestions" class="suggestions-container">
-            <div class="suggest-card" onclick="startChat('Explain Quantum Computing')">
-                Explain Quantum Computing
-            </div>
-
-            <div class="suggest-card" onclick="startChat('Write a Python Script')">
-                Write a Python Script
-            </div>
-
-            <div class="suggest-card" onclick="startChat('Plan a 3-day trip')">
-                Plan a 3-day trip
-            </div>
+            <div class="suggest-card" onclick="startChat('Explain Quantum Computing')">Explain Quantum Computing</div>
+            <div class="suggest-card" onclick="startChat('Write a Python Script')">Write a Python Script</div>
         </div>
-
-        <!-- CHAT -->
         <div id="chatBox" class="chat-viewport"></div>
-
     </div>
 
-    <!-- INPUT + NAV -->
     <div class="nav-wrapper">
-
-        <nav id="glassNav" class="glass-bar">
-
-            <!-- INPUT -->
+        <nav class="glass-bar">
             <div id="inputZone" class="input-container hidden">
+                <input type="text" id="userPrompt" placeholder="Ask anything..." autocomplete="off">
+                <button id="sendBtn"><i data-lucide="arrow-up"></i></button>
+            </div>
+            <div id="navItems" class="nav-items-group">
+                <div class="nav-btn" onclick="uiAction('main')"><i data-lucide="message-circle"></i><span>Chat</span></div>
+                <div class="nav-btn" onclick="uiAction('temp')"><i data-lucide="timer"></i><span>Temp</span></div>
+                <div class="nav-btn" onclick="uiAction('all')"><i data-lucide="layers"></i><span>All</span></div>
+                <div class="nav-btn" onclick="uiAction('settings')"><i data-lucide="settings"></i><span>Settings</span></div>
+            </div>
+            <div id="menuToggle" class="hidden" onclick="deactivateMainChat()" style="cursor:pointer;">
+                <i data-lucide="more-horizontal"></i>
+            </div>
+        </nav>
+    </div>
+</div>
 
-                <input
-                    type="text"
-                    id="userPrompt"
-                    placeholder="Ask anything..."
-                    autocomplete="off"
-                    spellcheck="false"
-                >
+<script src="script.js"></script>
+</body>
+                    </html>
+>
 
                 <button id="sendBtn">
                     <i data-lucide="arrow-up"></i>
