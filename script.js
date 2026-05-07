@@ -12,22 +12,18 @@ function uiAction(type) {
     const history = document.getElementById('historyPanel');
     const settings = document.getElementById('settingsSheet');
 
-    if (type === 'close') {
-        history.classList.remove('open');
-        settings.classList.remove('open');
-        return;
-    }
+    // Close everything by default first
+    history.classList.remove('open');
+    settings.classList.remove('open');
+
+    if (type === 'close') return;
 
     if (type === 'main') {
-        history.classList.remove('open');
-        settings.classList.remove('open');
         activateMainChat();
     } else if (type === 'all') {
         history.classList.add('open');
-        settings.classList.remove('open');
     } else if (type === 'settings') {
         settings.classList.add('open');
-        history.classList.remove('open');
     } else if (type === 'temp') {
         document.body.classList.toggle('temp-mode');
         const span = document.querySelector('.brand-pill-center span');
@@ -72,11 +68,19 @@ function deactivateMainChat() {
     }, 10);
 }
 
+function startChat(text) {
+    activateMainChat();
+    userPromptInput.value = text;
+    userPromptInput.focus();
+}
+
 async function handleUserMessage() {
     const text = userPromptInput.value.trim();
     if (!text) return;
+
     appendMessage(text, 'user');
     userPromptInput.value = '';
+    
     const thinkingId = 'think-' + Date.now();
     appendMessage('Thinking...', 'ai', thinkingId);
 
@@ -88,8 +92,9 @@ async function handleUserMessage() {
         });
         const data = await response.json();
         document.getElementById(thinkingId).innerHTML = marked.parse(data.choices[0].message.content);
+        chatBox.scrollTop = chatBox.scrollHeight;
     } catch (e) {
-        document.getElementById(thinkingId).textContent = 'Error: Failed to connect.';
+        document.getElementById(thinkingId).textContent = 'Connection Error.';
     }
 }
 
@@ -110,4 +115,4 @@ function appendMessage(text, role, id = null) {
 
 document.getElementById('sendBtn').addEventListener('click', handleUserMessage);
 userPromptInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleUserMessage(); });
-            
+    
