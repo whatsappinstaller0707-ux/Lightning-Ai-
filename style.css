@@ -1,5 +1,5 @@
 /* =========================
-   ROOT & RESET
+   ROOT
 ========================= */
 :root {
     --bg: #05070a;
@@ -9,6 +9,9 @@
     --glass-border: rgba(255, 255, 255, 0.12);
 }
 
+/* =========================
+   RESET
+========================= */
 * {
     margin: 0;
     padding: 0;
@@ -23,6 +26,7 @@ html, body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
 }
 
 .app {
@@ -30,15 +34,16 @@ html, body {
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
+    background: var(--bg);
 }
 
 /* =========================
-   PANELS (THE FIX)
+   SIDE PANEL & BOTTOM SHEET (THE FIX)
 ========================= */
 .side-panel {
     position: fixed;
     top: 0;
-    left: -100%; /* Hidden off-left */
+    left: -100%; /* Start hidden off-screen */
     width: 80%;
     max-width: 300px;
     height: 100%;
@@ -49,11 +54,13 @@ html, body {
     padding: 20px;
 }
 
-.side-panel.open { left: 0; }
+.side-panel.open {
+    left: 0; /* Slide in when active */
+}
 
 .bottom-sheet {
     position: fixed;
-    bottom: -100%; /* Hidden off-bottom */
+    bottom: -100%; /* Start hidden off-screen */
     left: 0;
     width: 100%;
     background: #0a0c10;
@@ -62,12 +69,15 @@ html, body {
     border-top: 1px solid var(--glass-border);
     border-radius: 24px 24px 0 0;
     padding: 20px;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
-.bottom-sheet.open { bottom: 0; }
+.bottom-sheet.open {
+    bottom: 0; /* Slide up when active */
+}
 
 /* =========================
-   HOME & BRAND
+   HOME SCREEN
 ========================= */
 .home-screen {
     flex: 1;
@@ -75,6 +85,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     padding: 20px 20px 120px;
+    width: 100%;
 }
 
 .brand-pill-center {
@@ -90,23 +101,50 @@ html, body {
     border: 1px solid var(--glass-border);
     font-size: 20px;
     font-weight: 800;
+    transition: all 0.3s ease;
 }
 
 .brand-pill-center span { color: var(--accent); }
 .brand-pill-center.active { transform: scale(0.85); margin-bottom: 16px; }
 
 /* =========================
-   CHAT & INPUT
+   SUGGESTIONS
+========================= */
+.suggestions-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.suggest-card {
+    width: 100%;
+    padding: 18px;
+    border-radius: 22px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* =========================
+   CHAT VIEWPORT
 ========================= */
 .chat-viewport {
     flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    padding: 20px 16px 140px;
     display: none;
     flex-direction: column;
     gap: 14px;
-    padding: 20px 16px 140px;
-    overflow-y: auto;
 }
 
+/* =========================
+   NAV & INPUT BAR
+========================= */
 .nav-wrapper {
     position: fixed;
     bottom: 20px;
@@ -129,7 +167,73 @@ html, body {
     border: 1px solid var(--glass-border);
 }
 
-.nav-items-group { width: 100%; display: flex; justify-content: space-around; }
-.nav-items-group.collapsed { display: none; }
+.input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-container input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+}
+
+#sendBtn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-items-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-items-group.collapsed {
+    display: none;
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+}
+
+.nav-btn span {
+    margin-top: 4px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--glass);
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
 
 .hidden { display: none !important; }
+
+/* =========================
+   TEMP MODE
+========================= */
+body.temp-mode { background: #0d0905; }
+body.temp-mode .brand-pill-center span { color: #ffaa00; }
+   
