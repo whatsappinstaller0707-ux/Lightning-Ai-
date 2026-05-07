@@ -1,0 +1,294 @@
+/* =========================
+   ROOT
+========================= */
+:root {
+    --bg: #05070a;
+    --text: #ffffff;
+    --accent: #00e0ff;
+    
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    
+    overflow-x: hidden;
+    
+    background: var(--bg);
+    color: var(--text);
+    
+    font-family: 'Inter', system-ui, sans-serif;
+    
+    -webkit-text-size-adjust: 100%;
+}
+
+/* =========================
+   APP
+========================= */
+.app {
+    width: 100%;
+    min-height: 100dvh;
+    
+    display: flex;
+    flex-direction: column;
+    
+    background: var(--bg);
+}
+
+/* =========================
+   HOME SCREEN
+========================= */
+.home-screen {
+    flex: 1;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    padding: 20px 20px 120px;
+    
+    width: 100%;
+}
+
+/* =========================
+   BRAND
+========================= */
+.brand-pill-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    gap: 10px;
+    
+    width: fit-content;
+    
+    margin: 0 auto 24px auto;
+    
+    padding: 15px 28px;
+    
+    border-radius: 999px;
+    
+    background: var(--glass);
+    
+    backdrop-filter: blur(20px);
+    
+    border: 1px solid var(--glass-border);
+    
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.brand-pill-center span {
+    color: var(--accent);
+}
+
+/* ACTIVE */
+.brand-pill-center.active {
+    transform: scale(0.85);
+    margin-bottom: 16px;
+}
+
+/* =========================
+   SUGGESTIONS
+========================= */
+.suggestions-container {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    
+    gap: 12px;
+}
+
+.suggestions-container.hidden {
+    display: none;
+}
+
+.suggest-card {
+    width: 100%;
+    
+    padding: 18px;
+    
+    border-radius: 22px;
+    
+    text-align: center;
+    
+    background: rgba(255, 255, 255, 0.03);
+    
+    border: 1px solid var(--glass-border);
+    
+    color: var(--text);
+    
+    font-size: 16px;
+}
+
+/* =========================
+   CHAT
+========================= */
+.chat-viewport {
+    flex: 1;
+    
+    width: 100%;
+    
+    overflow-y: auto;
+    
+    padding: 20px 16px 140px;
+    
+    display: none;
+    flex-direction: column;
+    
+    gap: 14px;
+    
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================
+   INPUT + NAV
+========================= */
+.nav-wrapper {
+    position: sticky;
+    
+    bottom: env(safe-area-inset-bottom, 16px);
+    
+    width: 100%;
+    
+    padding: 0 16px 16px;
+    
+    z-index: 1000;
+}
+
+/* GLASS BAR */
+.glass-bar {
+    width: 100%;
+    max-width: 500px;
+    
+    margin: 0 auto;
+    
+    min-height: 72px;
+    
+    display: flex;
+    align-items: center;
+    
+    padding: 10px 14px;
+    
+    border-radius: 30px;
+    
+    background: rgba(15, 15, 15, 0.85);
+    
+    backdrop-filter: blur(30px);
+    
+    border: 1px solid var(--glass-border);
+}
+
+/* INPUT */
+.input-container {
+    flex: 1;
+    
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+}
+
+.input-container input {
+    flex: 1;
+    
+    background: transparent;
+    
+    border: none;
+    outline: none;
+    
+    color: white;
+    
+    font-size: 16px;
+    
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* SEND */
+#sendBtn {
+    width: 42px;
+    height: 42px;
+    
+    border: none;
+    
+    border-radius: 50%;
+    
+    background: white;
+    color: black;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    flex-shrink: 0;
+}
+
+/* =========================
+   NAV ITEMS
+========================= */
+.nav-items-group {
+    width: 100%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    color: white;
+}
+
+.nav-btn span {
+    margin-top: 4px;
+    
+    font-size: 11px;
+    
+    opacity: 0.7;
+}
+
+/* =========================
+   PANELS
+========================= */
+.side-panel,
+.bottom-sheet {
+    position: fixed;
+    
+    z-index: 2000;
+}
+
+/* =========================
+   TEMP MODE
+========================= */
+body.temp-mode {
+    background: #0d0905;
+}
+
+body.temp-mode .brand-pill-center span {
+    color: #ffaa00;
+}
+
+/* =========================
+   UTILS
+========================= */
+.hidden {
+    display: none !important;
+}
